@@ -1,0 +1,723 @@
+import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import NavBar from './components/NavBar';
+import About from './components/About';
+import NewsPage from './components/NewsPage'; 
+import ClubSection from './components/ClubSection'; 
+import EventSection from './components/EventSection'; 
+import TeamPage from './components/TeamPage';
+import Default from './components/Default'; 
+
+function App() {
+  return (
+    <Router>
+      <div className="App">
+        <NavBar/>
+        <Routes>
+          <Route path="/" element={<Default />} /> 
+          <Route path="/about" element={<About />} />
+          <Route path="/news" element={<NewsPage />} />
+          <Route path="/clubs" element={<ClubSection />} />
+          <Route path="/events" element={<EventSection />} />
+          <Route path="/team" element={<TeamPage />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+}
+
+export default App;
+
+
+// import React from 'react';
+// import { Link } from 'react-router-dom';
+// import './NavBar.css';
+// import clgLogo from './photos/clgLogo.png';
+// import india from './photos/india.png';
+// import logo from './photos/cgectimes.png';
+// import mainLogo from './photos/ct.jpg';
+
+// const NavBar = () => {
+//     const getCurrentDate = () => {
+//         const options = { 
+//           weekday: 'long', 
+//           year: 'numeric', 
+//           month: 'short', 
+//           day: 'numeric' 
+//         };
+//         const today = new Date();
+//         return today.toLocaleDateString('en-US', options);
+//       };
+    
+     
+      
+//     return (
+//         <div className='main_nav'>
+//             <div className="fixed-top bg-white">
+//                 <nav className="navbar navbar-expand-lg navbar-light">
+//                     <div className="head container-fluid">
+//                         <div className="search-box">
+//                             <input className="form-control" type="text" placeholder="Search" />
+//                         </div>
+
+//                         <div className="navbar-brand d-flex align-items-center">
+//                             <img src={clgLogo} alt="Logo" className="logo-img mx-2" />
+//                             <span className="dept-names">BSH | CSE   || | ECE | EE  ||  ME | CE</span>
+//                             <img src={clgLogo} alt="Logo" className="logo-img mx-2" />
+//                         </div>
+
+//                         <div className="d-flex align-items-center">
+//                             <div className="nav-item email-btn"><a href="/Email">Email<i className="fa-solid fa-envelope mx-1"></i></a> </div>
+//                             <a href="https://www.linkedin.com/company/the-cgec-times/"><i className="fa-brands fa-linkedin-in mx-2 linkedIn social-icon"></i></a>
+//                             <a href="https://www.instagram.com/the_cgec_times/"><i className="fa-brands fa-instagram mx-2 instaGram social-icon"></i></a>
+//                             <a href="https://www.facebook.com/people/The-CGEC-TIMES/100088137340330/"><i className="fa-brands fa-facebook-f mx-2 faceBook social-icon"></i></a>
+//                         </div>
+//                     </div>
+//                 </nav>
+//             </div>
+
+        
+//             <div className="header-section login_sec container-fluid bg-white" style={{ marginTop: '80px' }}>
+//                 <div className="row">
+//                     <div className="col-md-12">
+//                         <div className="d-flex flex-column flex-md-row justify-content-between align-items-center p-3">
+//                         <div className='dateDetails d-flex justify-content-center align-items-center mb-3 mb-md-0'>
+//                           <u> {getCurrentDate()} || e-Paper || TODAY'S PAPER <br />  ENGLISH | বাংলা | हिंदी 
+//                           </u>
+//                         </div>
+//                             <div className='clg_logos d-flex mb-3 mb-md-0'>
+//                                 <img className='main_logo' src={mainLogo} alt="" />
+//                                 <img className='cgec' src={logo} alt="" />
+//                             </div>
+//                             <div>
+//                                 <div className="edition my-1">EDITION <img src={india} alt="" />INDIA</div>
+//                                 <div className="logSign">
+//                                     <button className="btn logIn btn-primary"><a href="/">Log In</a></button>
+//                                     <button className="btn signIn btn-primary mx-1"><a href="/">Sign In</a></button>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </div>
+
+            
+//             <div className="publications-section button_sec container-fluid bg-white p-2">
+//                 <div className="row">
+//                     <div className="col-md-12">
+//                     <div className="d-flex flex-wrap justify-content-center align-items-center">
+//   <Link to="/" className="publication-item me-3">Home</Link>
+//   <Link to="https://www.linkedin.com/company/the-cgec-times/" target='_blank' className="publication-item me-3">About</Link>
+//   <Link to="/news" className="publication-item me-3">News</Link>
+//   <Link to="/clubs" className="publication-item me-3">Clubs</Link>
+//   <Link to="/events" className="publication-item me-3">Events</Link>
+//   <Link to="/team" className="publication-item me-3">Team</Link>
+// </div>
+//        </div>
+//                 </div>
+//             </div>
+
+      
+//             <div className="margin"></div>
+
+            
+            
+//         </div>
+//     );
+// };
+
+// export default NavBar;
+
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import './NavBar.css';
+import clgLogo from './photos/clgLogo.png';
+import india from './photos/india.png';
+import logo from './photos/cgectimes.png';
+import mainLogo from './photos/ct.jpg';
+
+const NavBar = () => {
+    const [showClubsDropdown, setShowClubsDropdown] = useState(false);
+    
+    const getCurrentDate = () => {
+        const options = { 
+          weekday: 'long', 
+          year: 'numeric', 
+          month: 'short', 
+          day: 'numeric' 
+        };
+        const today = new Date();
+        return today.toLocaleDateString('en-US', options);
+    };
+
+    const toggleClubsDropdown = () => {
+        setShowClubsDropdown(!showClubsDropdown);
+    };
+
+    const clubs = [
+        "TECH-O-NICKS",
+        "PEP TALKS",
+        "CAPTURE CREW",
+        "GAMER'S CREED",
+        "CREATIVE PENS",
+        "SPORTS CLUB",
+        "ART CLUB",
+        "DEBATE CLUB"
+    ];
+      
+    return (
+        <div className='main_nav'>
+<div className="fixed-top bg-white">
+               <nav className="navbar navbar-expand-lg navbar-light">
+                   <div className="head container-fluid">
+                       <div className="search-box">
+                           <input className="form-control" type="text" placeholder="Search" />
+                       </div>
+
+                       <div className="navbar-brand d-flex align-items-center">
+                           <img src={clgLogo} alt="Logo" className="logo-img mx-2" />
+                           <span className="dept-names">BSH | CSE   || | ECE | EE  ||  ME | CE</span>
+                           <img src={clgLogo} alt="Logo" className="logo-img mx-2" />
+                       </div>
+
+                       <div className="d-flex align-items-center">
+                           <div className="nav-item email-btn"><a href="/Email">Email<i className="fa-solid fa-envelope mx-1"></i></a> </div>
+                           <a href="https://www.linkedin.com/company/the-cgec-times/"><i className="fa-brands fa-linkedin-in mx-2 linkedIn social-icon"></i></a>
+                           <a href="https://www.instagram.com/the_cgec_times/"><i className="fa-brands fa-instagram mx-2 instaGram social-icon"></i></a>
+                           <a href="https://www.facebook.com/people/The-CGEC-TIMES/100088137340330/"><i className="fa-brands fa-facebook-f mx-2 faceBook social-icon"></i></a>
+                       </div>
+                   </div>
+               </nav>
+           </div>    
+           <div className="header-section login_sec container-fluid bg-white" style={{ marginTop: '80px' }}>
+               <div className="row">
+                   <div className="col-md-12">
+                       <div className="d-flex flex-column flex-md-row justify-content-between align-items-center p-3">
+                       <div className='dateDetails d-flex justify-content-center align-items-center mb-3 mb-md-0'>
+                         <u> {getCurrentDate()} || e-Paper || TODAY'S PAPER <br />  ENGLISH | বাংলা | हिंदी 
+                         </u>
+                       </div>
+                           <div className='clg_logos d-flex mb-3 mb-md-0'>
+                               <img className='main_logo' src={mainLogo} alt="" />
+                               <img className='cgec' src={logo} alt="" />
+                           </div>
+                           <div>
+                               <div className="edition my-1">EDITION <img src={india} alt="" />INDIA</div>
+                               <div className="logSign">
+                                   <button className="btn logIn btn-primary"><a href="/">Log In</a></button>
+                                   <button className="btn signIn btn-primary mx-1"><a href="/">Sign In</a></button>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+
+            <div className="publications-section button_sec container-fluid bg-white p-2">
+                <div className="row">
+                    <div className="col-md-12">
+                        <div className="d-flex flex-wrap justify-content-center align-items-center">
+                            <Link to="/" className="publication-item me-3">Home</Link>
+                            <Link to="https://www.linkedin.com/company/the-cgec-times/" target='_blank' className="publication-item me-3">About</Link>
+                            <Link to="/news" className="publication-item me-3">News</Link>
+                            
+                            {/* Clubs dropdown */}
+                            <div 
+                                className="position-relative d-inline-block me-3"
+                                onMouseEnter={() => setShowClubsDropdown(true)}
+                                onMouseLeave={() => setShowClubsDropdown(false)}
+                            >
+                                <button 
+                                    className="publication-item dropdown-toggle"
+                                    onClick={toggleClubsDropdown}
+                                >
+                                    Clubs
+                                </button>
+                                
+                                {showClubsDropdown && (
+                                    <div className="clubs-dropdown-menu">
+                                        {clubs.map((club, index) => (
+                                            <Link 
+                                                key={index}
+                                                to={`/clubs/${club.toLowerCase().replace(/\s+/g, '-')}`}
+                                                className="dropdown-item"
+                                            >
+                                                {club}
+                                            </Link>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                            
+                            <Link to="/events" className="publication-item me-3">Events</Link>
+                            <Link to="/team" className="publication-item me-3">Team</Link>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="margin"></div>
+        </div>
+    );
+};
+
+export default NavBar;
+
+
+
+.main_nav a{
+    text-decoration: none;
+}
+.navbar {
+    max-width: 100vw; 
+    margin-top: 7px;
+    padding: 10px 20px;
+    box-shadow: 0 4px 10px rgba(117, 113, 113, 0.2);
+    width: 100%;
+    position: relative;
+    background: white;
+  }
+  
+  .navbar .container-fluid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 15px;
+  }
+  
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    order: 2; 
+    flex-grow: 1;
+    justify-content: center;
+    min-width: 0; 
+  }
+  
+  .logo-img {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  
+  .dept-names {
+    font-family: "Anton", sans-serif;
+    font-size: 18px;
+    color: #090021;
+    font-weight: 550;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0 10px;
+  }
+  
+  .search-box {
+    order: 1; 
+    width: 100%;
+  }
+  
+  .search-box .form-control {
+    height: 35px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #333;
+  }
+  
+  .navbar .social-section {
+    order: 3; 
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .email-btn a {
+    height: 30px;
+    min-width: 90px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    font-family: "Patua One", serif;
+    font-size: 16px;
+    color: #FFF;
+    text-decoration: none;
+    background: rgb(37, 89, 152);
+    padding: 0 10px;
+  }
+  
+  .email-btn a:hover {
+    transform: scale(1.05);
+    background: rgb(24, 56, 95);
+  }
+ 
+  
+  .social-icon {
+    font-size: 16px;
+    padding: 5px;
+    border: 2px solid #333;
+    color: #000;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .linkedIn:hover {
+    transform: scale(1.12);
+    color: #fff;
+    background-color: #342fc7;
+    border-color: #000000;
+  }
+  
+  .instaGram:hover {
+    color: rgb(249, 249, 249);
+    background: rgb(255, 35, 72);
+    border-color: #000000;
+  }
+  
+  .faceBook:hover {
+    color: #ffff;
+    background-color: #5832e1;
+    border-color: rgb(0, 0, 0);
+  }
+  
+  .header-section {
+    margin-top: 80px;
+    background: white;
+    width: 100%;
+    padding: 15px 0;
+    box-shadow: 0 4px 10px rgba(117, 113, 113, 0.2);
+  }
+  
+  .header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 0 15px;
+  }
+  
+  .dateDetails {
+    width: 100%;
+    max-width: 420px;
+    border-radius: 15px;
+    color: #000;
+    font-size: 15px;
+    font-weight: 700;
+    background-color: rgb(187, 170, 170);
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .clg_logos {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .main_logo {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .cgec {
+    height: 50px;
+    width: auto;
+    max-height: 50px;
+  }
+  
+  .edition {
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+  }
+  
+  .edition img {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+  }
+  
+  .logSign {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  .logIn, .signIn {
+    border-radius: 10px;
+    font-weight: 700;
+    padding: 5px 15px;
+    transition: all 0.3s ease;
+  }
+  .logIn a, .signIn a{
+    color: #fff;
+  }
+  
+  .logIn {
+    background-color: rgb(13, 114, 134);
+    box-shadow: 0 4px 8px rgba(123, 161, 169, 0.3);
+  }
+  
+  .signIn {
+    background-color: rgb(15, 28, 216);
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(94, 112, 214, 0.3);
+  }
+  
+  .logIn:hover, .signIn:hover {
+    transform: translateY(-2px);
+  }
+  .login_sec {
+    box-shadow: 10px 0 10px #757171;
+}
+.login_sec .logSign .logIn{
+    border-radius: 10px;
+    background-color: rgb(13, 114, 134);
+    box-shadow: 0 10px 10px rgb(123, 161, 169);
+}
+.login_sec .logSign .signIn{
+    background-color: rgb(15, 28, 216);
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 10px rgb(94, 112, 214);
+}
+.login_sec .logSign .logIn:hover{
+    cursor: pointer;
+    background-color: rgb(11, 67, 78);
+    box-shadow: 0 10px 10px  rgb(60, 76, 79);
+}
+.login_sec .logSign .signIn:hover{
+    cursor: pointer;
+    background-color: rgb(20, 27, 126);
+    box-shadow: 0 10px 10px rgb(104, 108, 157);
+}
+.login_sec .logSign .logIn a{
+    height: 20px;
+    color: #fff;
+  
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+.login_sec .logSign .signIn a{
+    height: 20px;
+    color: #fff;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+
+
+  
+  .publications-section {
+    width: 100%;
+    background: white;
+    padding: 10px;
+    margin-top: 20px;
+    box-shadow: 0 4px 10px rgba(117, 113, 113, 0.2);
+    border-radius: 10px;
+  }
+  
+  .publication-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+  
+  .publication-item {
+    font-weight: 800;
+    padding: 5px 15px;
+    border-radius: 10px;
+    color: #fff;
+    background-color: #000;
+    font-size: 14px;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+  }
+  
+  .publication-item:hover {
+    transform: translateY(-2px);
+  }
+  
+  .margin {
+    width: 100%;
+    height: 3px;
+    margin: 2px 0;
+    background: linear-gradient(to right, 
+      rgb(177, 14, 41), 
+      yellow, 
+      green, 
+      orange, 
+      rgb(206, 132, 144), 
+      blue);
+  }
+
+  /* Add these styles to your existing CSS */
+
+/* Dropdown styles */
+.position-relative {
+  position: relative;
+}
+
+.clubs-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  min-width: 200px;
+  padding: 10px 0;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-item {
+  padding: 8px 20px;
+  color: #333;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.dropdown-item:hover {
+  background-color: #f5f5f5;
+  color: #000;
+  transform: translateX(5px);
+}
+
+.dropdown-toggle {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-weight: 800;
+  padding: 5px 15px;
+  border-radius: 10px;
+  color: #fff;
+  background-color: #000;
+  font-size: 14px;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.dropdown-toggle:hover {
+  transform: translateY(-2px);
+}
+  
+  @media (min-width: 576px) {
+    .navbar .container-fluid {
+      flex-wrap: nowrap;
+      gap: 20px;
+    }
+    
+    .search-box {
+      order: 0;
+      width: auto;
+      flex: 0 0 200px;
+    }
+    
+    .navbar-brand {
+      order: 0;
+      flex-grow: 0;
+      justify-content: flex-start;
+    }
+    
+    .social-section {
+      order: 0;
+      width: auto;
+      justify-content: flex-end;
+    }
+    
+    .header-content {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .dateDetails {
+      width: auto;
+      flex: 1;
+      margin: 0;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .dept-names {
+      display: block;
+    }
+    
+    .search-box .form-control {
+      width: 200px;
+    }
+    
+    .header-content {
+      padding: 0 30px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .dept-names {
+      font-size: 14px;
+      margin: 0 5px;
+    }
+    
+    .email-btn a {
+      font-size: 14px;
+      min-width: 70px;
+    }
+    
+    .social-icon {
+      width: 25px;
+      height: 25px;
+      font-size: 14px;
+    }
+    
+    .dateDetails {
+      font-size: 12px;
+      padding: 8px;
+    }
+    
+    .main_logo {
+      height: 50px;
+      width: 50px;
+    }
+    
+    .cgec {
+      height: 40px;
+    }
+    
+    .publication-item {
+      font-size: 12px;
+      padding: 3px 10px;
+    }
+  }
+
+
+
+
+
